@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>跨境电商图片提示词库</title>
+  <style>
+    :root {
+      --ink: #20201d;
+      --muted: #6d6a62;
+      --line: #ded8cc;
+      --paper: #f7f3eb;
+      --panel: #fffdf8;
+      --accent: #176f5d;
+      --accent-2: #c84b31;
+      --soft: #e8f1ed;
+      --shadow: 0 18px 50px rgba(45, 37, 24, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(135deg, rgba(23, 111, 93, .08), transparent 32%),
+        linear-gradient(315deg, rgba(200, 75, 49, .08), transparent 34%),
+        var(--paper);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 24px;
+      align-items: end;
+      padding: 24px 0 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      max-width: 820px;
+    }
+
+    .subhead {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .status {
+      justify-self: end;
+      width: min(100%, 360px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .status strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .status span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-panel {
+      position: sticky;
+      top: 20px;
+      padding: 18px;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-top: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #3c3932;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #cfc7b8;
+      background: #fffaf0;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(23, 111, 93, .15);
+    }
+
+    .quick-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 12px;
+      cursor: pointer;
+      font-weight: 800;
+      color: #fff;
+      background: var(--accent);
+      transition: transform .16s ease, filter .16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(.97);
+    }
+
+    .btn.secondary {
+      background: #3e3a33;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .78);
+      color: #474238;
+      border-radius: 8px;
+      padding: 12px 10px;
+      cursor: pointer;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .tab.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .templates {
+      display: grid;
+      gap: 14px;
+    }
+
+    .template-card {
+      padding: 18px;
+    }
+
+    .card-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .card-head h3 {
+      margin: 0 0 6px;
+      font-size: 21px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .goal {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .prompt {
+      width: 100%;
+      min-height: 230px;
+      margin-top: 12px;
+      border: 1px dashed #bdb2a0;
+      background: #fffaf0;
+      border-radius: 8px;
+      padding: 14px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #28251f;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 116px;
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: var(--accent-2);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 10;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      header,
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .status {
+        justify-self: stretch;
+        width: 100%;
+      }
+
+      .form-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell {
+        width: min(100% - 24px, 1440px);
+        padding-top: 14px;
+      }
+
+      .tabs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .quick-row,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .card-head {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <h1>跨境电商图片提示词库</h1>
+        <p class="subhead">给美国和英国市场做主图、副图、信息图和对比图。填一次产品信息，下面所有模板会自动替换，点击即可复制。</p>
+      </div>
+      <aside class="status">
+        <strong>办公室使用方式</strong>
+        <span>本页是单文件静态工具，可本地打开，也可用局域网地址给同事访问。主图模板偏亚马逊合规，副图模板偏转化表达。</span>
+      </aside>
+    </header>
+
+    <main>
+      <section class="panel form-panel" aria-label="产品信息">
+        <div class="panel-title">
+          <h2>产品信息</h2>
+          <span class="hint">常用项先填</span>
+        </div>
+
+        <div class="field">
+          <label for="product">产品名称</label>
+          <input id="product" value="不锈钢压蒜器" placeholder="例如：不锈钢压蒜器">
+        </div>
+
+        <div class="quick-row">
+          <div class="field">
+            <label for="platform">平台</label>
+            <select id="platform">
+              <option>Amazon</option>
+              <option>eBay</option>
+              <option>TikTok Shop</option>
+              <option>Shopify</option>
+              <option>通用电商</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ratio">画面比例</label>
+            <select id="ratio">
+              <option>1:1</option>
+              <option>4:5</option>
+              <option>3:4</option>
+              <option>16:9</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="buyer">目标买家</label>
+          <input id="buyer" value="美国和英国注重实用、品质和性价比的家庭用户" placeholder="例如：小户型家庭、办公室人群">
+        </div>
+
+        <div class="field">
+          <label for="benefit">核心卖点</label>
+          <textarea id="benefit" placeholder="例如：省力压蒜、易清洗、不伤手、适合日常厨房使用">省力、易清洗、结实耐用，适合日常厨房快速备餐</textarea>
+        </div>
+
+        <div class="field">
+          <label for="pain">用户痛点</label>
+          <textarea id="pain" placeholder="例如：普通压蒜器费力、难清洗、容易断裂">普通工具费力、蒜泥残留难清理、廉价塑料感强</textarea>
+        </div>
+
+        <div class="field">
+          <label for="details">材质 / 颜色 / 尺寸</label>
+          <textarea id="details" placeholder="例如：304不锈钢，银色，手柄防滑">银色不锈钢材质，圆润手柄，坚固金属质感</textarea>
+        </div>
+
+        <div class="field">
+          <label for="avoid">必须避免</label>
+          <textarea id="avoid">竞品品牌名称、Logo、水印、虚假认证、夸大宣传、误导性前后对比、错误产品结构</textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="fillSample" type="button">填入示例</button>
+          <button class="btn secondary" id="clearFields" type="button">清空重填</button>
+        </div>
+      </section>
+
+      <section aria-label="提示词模板">
+        <nav class="tabs" aria-label="模板分类">
+          <button class="tab active" data-group="core" type="button">核心图片</button>
+          <button class="tab" data-group="conversion" type="button">转化副图</button>
+          <button class="tab" data-group="detail" type="button">规格细节</button>
+          <button class="tab" data-group="bundle" type="button">整套生成</button>
+        </nav>
+        <div class="templates" id="templates"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const fields = ["product", "platform", "ratio", "buyer", "benefit", "pain", "details", "avoid"];
+
+    const templates = [
+      {
+        group: "core",
+        title: "白底主图",
+        tag: "首图 / 合规优先",
+        goal: "用于 Amazon、eBay 或独立站首图，强调清晰、真实、可信。",
+        prompt: `为【product】生成一张高转化率电商主图，目标客户是【buyer】，主要售卖平台是【platform】。
+
+画面只展示产品本身，纯白色背景，产品居中，占画面约 85%。产品要清晰、真实、高级、干净，边缘锐利，比例准确，材质细节真实。产品细节：【details】。
+
+使用专业棚拍灯光，带有自然柔和阴影，整体像高质量 Amazon product photography。
+
+风格关键词：Amazon product photography, ultra realistic, clean white background, premium retail presentation, high resolution, sharp details。
+
+画面比例：【ratio】。
+
+不要添加文字、Logo、水印、徽章、人物、手、额外配件、虚假包装、夸张特效或装饰性道具。必须避免：【avoid】。`
+      },
+      {
+        group: "core",
+        title: "高级生活场景图",
+        tag: "副图 / 使用感",
+        goal: "让买家快速想象产品在自己生活里的使用场景。",
+        prompt: `为【product】生成一张真实的电商生活场景图，目标客户是【buyer】，主要售卖平台是【platform】。
+
+展示产品在真实生活环境中的自然使用状态。场景要干净、现代、有美国和英国消费者熟悉的生活感。画面需要一眼传达产品的核心好处：【benefit】。
+
+产品必须清晰可见，并且是画面主角。产品细节：【details】。整体感觉要真实、实用、可信，不要过度摆拍。
+
+风格关键词：realistic lifestyle product photography, commercial advertising quality, clean composition, warm natural light, high detail, premium but everyday feel。
+
+画面比例：【ratio】。
+
+不要添加 Logo、水印、夸张特效、不真实的产品尺寸、杂乱背景或竞品品牌元素。必须避免：【avoid】。`
+      },
+      {
+        group: "conversion",
+        title: "核心卖点信息图",
+        tag: "信息图 / 快速理解",
+        goal: "把 3 到 5 个卖点压缩到一张图里，适合副图。",
+        prompt: `为【product】生成一张高转化率电商卖点信息图，目标客户是【buyer】，主要售卖平台是【platform】。
+
+产品放在画面中心，尺寸较大且清晰。围绕产品添加 3 到 5 个简洁的卖点标注，重点突出：【benefit】。
+
+产品细节：【details】。画面采用干净现代的排版，文字简短易读，搭配简洁图标。背景使用白色或浅色中性色。整体要有专业亚马逊副图风格，让消费者快速理解产品价值。
+
+风格关键词：professional Amazon infographic, clean layout, conversion-focused, realistic product render, sharp details, premium e-commerce design。
+
+画面比例：【ratio】。
+
+避免夸大宣传、虚假认证、布局混乱、文字太小、竞品 Logo、不真实特效。必须避免：【avoid】。`
+      },
+      {
+        group: "conversion",
+        title: "问题解决型图片",
+        tag: "痛点 / 转化",
+        goal: "让买家产生“这个产品正好解决我的问题”的判断。",
+        prompt: `为【product】生成一张问题解决型电商图片，目标客户是【buyer】。
+
+画面需要清楚表达：消费者遇到的问题是【pain】，而本产品可以通过【benefit】解决这个问题。
+
+构图要直观，产品清晰可见，场景真实可信。可以使用左右对比、前后对比或局部放大细节的方式，但不要夸张失真。产品细节：【details】。
+
+风格关键词：realistic e-commerce advertising image, clear benefit communication, clean layout, professional product photography, conversion-focused design。
+
+画面比例：【ratio】。
+
+不要使用虚假效果、夸大承诺、竞品品牌、杂乱背景、过多文字。必须避免：【avoid】。`
+      },
+      {
+        group: "conversion",
+        title: "同类普通款对比图",
+        tag: "对比 / 不点名竞品",
+        goal: "突出自己产品比普通同类产品更可靠，但不碰竞品品牌风险。",
+        prompt: `为【product】生成一张电商对比图，目标客户是【buyer】。
+
+画面左右分屏。左边展示普通同类产品，表现常见问题：【pain】。右边展示本产品，突出优势：【benefit】。
+
+右边产品要看起来更高级、更可靠、更实用。整体构图清晰，让美国和英国消费者在 3 秒内理解为什么这个产品更值得购买。产品细节：【details】。
+
+使用干净的分屏布局、真实产品摄影、简洁图标和短文字标签。
+
+风格关键词：Amazon comparison image, clean professional layout, realistic lighting, high trust, conversion-focused design。
+
+画面比例：【ratio】。
+
+不要出现竞品品牌名称、虚假宣传、夸张效果、杂乱文字或不真实的前后对比。必须避免：【avoid】。`
+      },
+      {
+        group: "detail",
+        title: "尺寸规格图",
+        tag: "规格 / 降低退货",
+        goal: "让买家快速理解大小、材质和适用场景。",
+        prompt: `为【product】生成一张电商尺寸规格图，目标客户是【buyer】。
+
+产品居中清晰展示，标注关键尺寸、材质和使用信息。当前产品细节：【details】。
+
+画面要干净、专业、易读，让消费者快速理解产品大小和适用场景。可以加入简洁的比例参照物，但不要抢占产品主体。背景使用白色或浅灰色，整体风格适合 Amazon、eBay 和独立站商品详情页。
+
+风格关键词：professional e-commerce size chart, clear annotations, clean layout, realistic product display, high trust。
+
+画面比例：【ratio】。
+
+不要使用过多装饰、复杂背景、难读文字、错误比例、夸张视觉效果。必须避免：【avoid】。`
+      },
+      {
+        group: "detail",
+        title: "材质细节特写",
+        tag: "质感 / 信任",
+        goal: "放大材质和做工，解决低价跟卖常见的廉价感问题。",
+        prompt: `为【product】生成一张电商材质细节特写图，目标客户是【buyer】。
+
+画面聚焦产品关键细节和材质质感：【details】。需要突出产品的真实做工、耐用感和高级感，同时保持商业摄影的干净构图。
+
+可以使用局部放大、近景特写、细节标注，但产品结构必须准确。核心卖点：【benefit】。
+
+风格关键词：macro product photography, premium material texture, sharp details, realistic lighting, clean e-commerce detail image。
+
+画面比例：【ratio】。
+
+不要让产品变形，不要出现错误零件、虚假 Logo、水印、夸张滤镜或过度磨皮效果。必须避免：【avoid】。`
+      },
+      {
+        group: "bundle",
+        title: "7 张图整套生成",
+        tag: "批量 / 日常最常用",
+        goal: "一次让 GPT 输出整套图片提示词，适合新品或快速跟卖。",
+        prompt: `你是一位专业电商视觉创意总监，擅长为美国和英国市场的 Amazon、eBay、TikTok Shop 和 Shopify 商品生成高转化率图片。
+
+请根据下面的产品信息，为我生成 7 张电商图片的中文图片生成提示词：
+
+1. 符合亚马逊规则的白底主图
+2. 高级生活场景图
+3. 核心卖点信息图
+4. 尺寸规格图
+5. 问题解决型图片
+6. 与普通同类产品的对比图
+7. 包装或套装展示图
+
+每张图片都需要包含：
+- 图片目标
+- 完整图片生成提示词
+- 负面提示词
+- 推荐画面比例
+- 这张图要让买家产生什么感觉
+
+产品信息：
+产品名称：【product】
+目标买家：【buyer】
+主要平台：【platform】
+画面比例：【ratio】
+核心卖点：【benefit】
+用户痛点：【pain】
+材质 / 颜色 / 尺寸：【details】
+必须避免：【avoid】
+
+规则：
+不要使用竞品品牌名称、Logo、虚假认证、夸大宣传或误导性前后对比。
+图片要适合美国和英国消费者。
+优先考虑清晰度、信任感、产品可见度和转化率。`
+      },
+      {
+        group: "bundle",
+        title: "通用负面提示词",
+        tag: "附加 / 防跑偏",
+        goal: "粘贴到任何图片生成工具的负面提示词区域。",
+        prompt: `低质量、模糊、产品变形、比例错误、多余零件、虚假 Logo、水印、文字不可读、画面拥挤、背景杂乱、不真实光影、过曝、欠曝、卡通风格、廉价塑料感、夸张特效、误导性宣传、竞品品牌元素、错误产品结构、错误尺寸、错误材质、手指畸形、人物畸形、过度美化、与【product】不相关的装饰道具、必须避免：【avoid】`
+      }
+    ];
+
+    let activeGroup = "core";
+
+    function valueOf(id) {
+      return document.getElementById(id).value.trim() || `【${id}】`;
+    }
+
+    function buildPrompt(template) {
+      return template
+        .replaceAll("【product】", valueOf("product"))
+        .replaceAll("【platform】", valueOf("platform"))
+        .replaceAll("【ratio】", valueOf("ratio"))
+        .replaceAll("【buyer】", valueOf("buyer"))
+        .replaceAll("【benefit】", valueOf("benefit"))
+        .replaceAll("【pain】", valueOf("pain"))
+        .replaceAll("【details】", valueOf("details"))
+        .replaceAll("【avoid】", valueOf("avoid"));
+    }
+
+    function render() {
+      const container = document.getElementById("templates");
+      container.innerHTML = "";
+
+      templates
+        .filter((item) => item.group === activeGroup)
+        .forEach((item, index) => {
+          const article = document.createElement("article");
+          article.className = "panel template-card";
+
+          const promptText = buildPrompt(item.prompt);
+          article.innerHTML = `
+            <div class="card-head">
+              <div>
+                <h3>${item.title}</h3>
+                <p class="goal">${item.goal}</p>
+              </div>
+              <span class="badge">${item.tag}</span>
+            </div>
+            <div class="prompt" id="prompt-${index}" tabindex="0"></div>
+            <div class="card-actions">
+              <button class="copy" type="button" data-copy="${index}">复制提示词</button>
+              <span class="meta">已按左侧产品信息自动替换</span>
+            </div>
+          `;
+
+          container.appendChild(article);
+          article.querySelector(".prompt").textContent = promptText;
+          article.querySelector(".copy").addEventListener("click", () => copyText(promptText));
+        });
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      showToast("已复制提示词");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        activeGroup = tab.dataset.group;
+        document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab));
+        render();
+      });
+    });
+
+    fields.forEach((id) => document.getElementById(id).addEventListener("input", render));
+    fields.forEach((id) => document.getElementById(id).addEventListener("change", render));
+
+    document.getElementById("fillSample").addEventListener("click", () => {
+      document.getElementById("product").value = "不锈钢压蒜器";
+      document.getElementById("platform").value = "Amazon";
+      document.getElementById("ratio").value = "1:1";
+      document.getElementById("buyer").value = "美国和英国注重实用、品质和性价比的家庭用户";
+      document.getElementById("benefit").value = "省力、易清洗、结实耐用，适合日常厨房快速备餐";
+      document.getElementById("pain").value = "普通工具费力、蒜泥残留难清理、廉价塑料感强";
+      document.getElementById("details").value = "银色不锈钢材质，圆润手柄，坚固金属质感";
+      document.getElementById("avoid").value = "竞品品牌名称、Logo、水印、虚假认证、夸大宣传、误导性前后对比、错误产品结构";
+      render();
+      showToast("示例已填入");
+    });
+
+    document.getElementById("clearFields").addEventListener("click", () => {
+      fields.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element.tagName === "SELECT") {
+          element.selectedIndex = 0;
+        } else {
+          element.value = "";
+        }
+      });
+      render();
+      showToast("已清空");
+    });
+
+    render();
+  </script>
+</body>
+</html>
