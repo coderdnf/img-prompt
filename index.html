@@ -93,6 +93,29 @@
       line-height: 1.6;
     }
 
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mindset-btn {
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 13px;
+      cursor: pointer;
+      font-weight: 800;
+      color: #fff;
+      background: var(--accent-2);
+      transition: transform .16s ease, filter .16s ease;
+    }
+
+    .mindset-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(.98);
+    }
+
     main {
       display: grid;
       grid-template-columns: 360px minmax(0, 1fr);
@@ -330,6 +353,67 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(32, 32, 29, .72);
+      z-index: 20;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: min(980px, 100%);
+      max-height: min(92vh, 1160px);
+      overflow: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 22px 70px rgba(0, 0, 0, .28);
+    }
+
+    .modal-head {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 14px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-head h2 {
+      font-size: 18px;
+    }
+
+    .close-btn {
+      border: 0;
+      border-radius: 6px;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      color: #fff;
+      background: var(--ink);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .mindset-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     @media (max-width: 980px) {
       header,
       main {
@@ -350,6 +434,10 @@
       .shell {
         width: min(100% - 24px, 1440px);
         padding-top: 14px;
+      }
+
+      .modal {
+        padding: 10px;
       }
 
       .tabs {
@@ -377,6 +465,9 @@
       <aside class="status">
         <strong>办公室使用方式</strong>
         <span>本页是单文件静态工具，可本地打开，也可用局域网地址给同事访问。主图模板偏亚马逊合规，副图模板偏转化表达。</span>
+        <div class="header-actions">
+          <button class="mindset-btn" id="openMindset" type="button">查看 6 个 Prompt 心法</button>
+        </div>
       </aside>
     </header>
 
@@ -455,6 +546,16 @@
         <div class="templates" id="templates"></div>
       </section>
     </main>
+  </div>
+
+  <div class="modal" id="mindsetModal" aria-hidden="true" role="dialog" aria-label="6 个常用 Prompt 心法">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h2>6 个常用 Prompt 心法</h2>
+        <button class="close-btn" id="closeMindset" type="button" aria-label="关闭">×</button>
+      </div>
+      <img class="mindset-image" src="assets/prompt-mindset.png" alt="6 个常用 Prompt 心法">
+    </div>
   </div>
 
   <div class="toast" id="toast">已复制</div>
@@ -741,6 +842,29 @@
       });
       render();
       showToast("已清空");
+    });
+
+    const mindsetModal = document.getElementById("mindsetModal");
+    const openMindset = document.getElementById("openMindset");
+    const closeMindset = document.getElementById("closeMindset");
+
+    function setMindsetOpen(isOpen) {
+      mindsetModal.classList.toggle("open", isOpen);
+      mindsetModal.setAttribute("aria-hidden", String(!isOpen));
+      document.body.style.overflow = isOpen ? "hidden" : "";
+    }
+
+    openMindset.addEventListener("click", () => setMindsetOpen(true));
+    closeMindset.addEventListener("click", () => setMindsetOpen(false));
+    mindsetModal.addEventListener("click", (event) => {
+      if (event.target === mindsetModal) {
+        setMindsetOpen(false);
+      }
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setMindsetOpen(false);
+      }
     });
 
     render();
