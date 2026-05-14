@@ -6,9 +6,15 @@
 
 - 本地直接打开 `index.html`
 - 或部署到 GitHub Pages 后在线访问
+- 平台选择 `TikTok Shop` 时显示 TikTok Shop 专用模板
+- 平台选择其他选项时显示 Amazon / 通用电商模板
 
 ## 内容
 
+- TikTok Shop 高点击封面图
+- TikTok Shop 真人使用种草图
+- TikTok Shop 痛点瞬间图
+- TikTok Shop 直播间挂车图
 - 白底主图
 - 生活场景图
 - 核心卖点信息图
